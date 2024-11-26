@@ -61,14 +61,7 @@ const SignIn = () => {
         </View>
 
         {/* Verification Modal */}
-          <ReactNativeModal isVisible={verification.state === "success"}>
-              <View className="bg-white px-7 py-9">
-                  <Image
-                      source={images.check}
-                      className="w-[110px] h-[110px] mx-auto my-5"
-                  />
-              </View>
-          </ReactNativeModal>
+
       </View>
     </ScrollView>
   );
