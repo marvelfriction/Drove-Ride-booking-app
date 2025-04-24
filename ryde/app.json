@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "adclickgo.mobile"
+      "package": "com.marvelfriction.ryde"
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +32,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "cf39cd63-79ae-4be5-b447-cd32417345f0"
+      }
     }
   }
 }
