@@ -27,16 +27,14 @@ const SignUp = () => {
     })
 
     const onSignUpPress = async () => {
-        if (!isLoaded) {
-            return
-        }
-
+        if (!isLoaded) return
+        // Start sign-up process using email and password provided
         try {
             await signUp.create({
                 emailAddress: form.email,
                 password: form.password,
             })
-
+            // Send user an email with verification code
             await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 
             setVerification({
@@ -56,7 +54,6 @@ const SignUp = () => {
             const completeSignUp = await signUp.attemptEmailAddressVerification({
                 code: verification.code,
             })
-
             if (completeSignUp.status === 'complete') {
                 // TODO: Create a database user!
 

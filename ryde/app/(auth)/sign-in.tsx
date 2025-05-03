@@ -1,8 +1,7 @@
-import React from "react"
+import React, { useState } from "react";
 import { ScrollView, View, Text, Image } from "react-native";
 import { images, icons } from "../constants";
 import InputField from "@/app/components/InputField";
-import { useState } from "react";
 import CustomButton from "../components/CustomButton";
 import { Link, useRouter } from "expo-router";
 import OAuth from "../components/OAuth";
@@ -10,36 +9,34 @@ import { ReactNativeModal } from "react-native-modal";
 import { useSignIn } from "@clerk/clerk-expo";
 
 const SignIn = () => {
-  const { isLoaded, signIn, setActive } = useSignIn()
-  const router = useRouter()
+  const { isLoaded, signIn, setActive } = useSignIn();
+  const router = useRouter();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const onSignInPress = React.useCallback(async () => {
-    if (!isLoaded) {
-      return
-    }
+    if (!isLoaded) return;
 
     try {
       const signInAttempt = await signIn.create({
         identifier: form.email,
         password: form.password,
-      })
+      });
 
-      if (signInAttempt.status === 'complete') {
-        await setActive({ session: signInAttempt.createdSessionId })
-        router.replace('/')
+      if (signInAttempt.status === "complete") {
+        await setActive({ session: signInAttempt.createdSessionId });
+        router.replace("/(root)/(tabs)/home");
       } else {
         // See https://clerk.com/docs/custom-flows/error-handling
         // for more info on error handling
-        console.error(JSON.stringify(signInAttempt, null, 2))
+        console.error(JSON.stringify(signInAttempt, null, 2));
       }
     } catch (err: any) {
-      console.error(JSON.stringify(err, null, 2))
+      console.error(JSON.stringify(err, null, 2));
     }
-  }, [isLoaded, form.email, form.password])
+  }, [isLoaded, form.email, form.password]);
   return (
     <ScrollView className="flex-1 bg-white">
       <View className="flex-1 bg-white">
@@ -55,6 +52,7 @@ const SignIn = () => {
             label="Email"
             placeholder="Enter email"
             icon={icons.email}
+            autoCapitalize="none"
             textContentType="emailAddress"
             value={form.email}
             onChangeText={(value) => setForm({ ...form, email: value })}
@@ -86,7 +84,6 @@ const SignIn = () => {
         </View>
 
         {/* Verification Modal */}
-
       </View>
     </ScrollView>
   );
